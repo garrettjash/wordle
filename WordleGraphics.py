@@ -3,6 +3,9 @@
 """
 This file implements the WordleGWindow class, which manages the
 graphical display for the Wordle project.
+
+Group 2-2
+Garrett Ashcroft, Vivian Solgere, Caroline Tobler, Jared Rosenlund
 """
 
 import atexit

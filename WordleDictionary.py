@@ -3,6 +3,9 @@
 """
 This module defines the dictionary of five-letter words used in
 the Wordle project.
+
+Group 2-2
+Garrett Ashcroft, Vivian Solgere, Caroline Tobler, Jared Rosenlund
 """
 
 FIVE_LETTER_WORDS = [

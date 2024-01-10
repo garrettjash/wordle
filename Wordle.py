@@ -2,7 +2,9 @@
 
 """
 This module is the starter file for the Wordle assignment.
-Garrett Ashcroft
+
+Group 2-2
+Garrett Ashcroft, Vivian Solgere, Caroline Tobler, Jared Rosenlund
 """
 
 import random
