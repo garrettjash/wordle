@@ -16,12 +16,10 @@ def wordle():
     gw = WordleGWindow()
 
     def enter_action(s):
+        # nonlocal randomWord
         gw.show_message("You have to implement this method.")
 
-    # This sets the first row to the random word
-    for iCount in range(N_COLS): #Iterates through the number of columns (5)
-        gw.set_square_letter(0, iCount, randomWord[iCount])
-
+    gw = WordleGWindow()
     gw.add_enter_listener(enter_action)
 
 # Startup code
