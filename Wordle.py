@@ -13,7 +13,6 @@ from WordleDictionary import FIVE_LETTER_WORDS
 from WordleGraphics import WordleGWindow, N_COLS, N_ROWS
 
 def wordle():
-    gw = WordleGWindow()
 
     def enter_action(s):
         # nonlocal randomWord
@@ -25,6 +24,4 @@ def wordle():
 # Startup code
 
 if __name__ == "__main__":
-    # Hardcoded random word for display test
-    randomWord = 'zesty'
     wordle()
