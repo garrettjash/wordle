@@ -12,6 +12,9 @@ import random
 from WordleDictionary import FIVE_LETTER_WORDS
 from WordleGraphics import WordleGWindow, N_COLS, N_ROWS
 
+def randomWord():
+    return random.choice(FIVE_LETTER_WORDS).upper()
+
 def wordle():
     gw = WordleGWindow()
 
@@ -29,5 +32,5 @@ def wordle():
 
 if __name__ == "__main__":
     # Hardcoded random word for display test
-    randomWord = 'zesty'
+    randomWord = randomWord()
     wordle()
