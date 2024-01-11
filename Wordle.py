@@ -31,8 +31,6 @@ def wordle():
     gw.add_enter_listener(enter_action)
 
 # Startup code
-#testing testing
 
 if __name__ == "__main__":
-    # Hardcoded random word for display test
     wordle()
