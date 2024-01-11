@@ -13,7 +13,11 @@ from WordleDictionary import FIVE_LETTER_WORDS
 from WordleGraphics import WordleGWindow, N_COLS, N_ROWS
 
 def randomWord():
+<<<<<<< HEAD
     return random.choice(FIVE_LETTER_WORDS).upper()
+=======
+    return random.choice(FIVE_LETTER_WORDS)
+>>>>>>> 789f27edbee68d7b64b32b41c014728ea379e9ae
 
 def wordle():
     gw = WordleGWindow()
@@ -22,9 +26,10 @@ def wordle():
         # nonlocal randomWord
         gw.show_message("You have to implement this method.")
 
+    chosen_word = randomWord()
     # This sets the first row to the random word
     for iCount in range(5): #5 because they are all 5 letter words
-        gw.set_square_letter(0, iCount, randomWord[iCount])
+        gw.set_square_letter(0, iCount, chosen_word[iCount])
 
     gw.add_enter_listener(enter_action)
 
