@@ -34,5 +34,4 @@ def wordle():
 
 if __name__ == "__main__":
     # Hardcoded random word for display test
-    word = randomWord()
     wordle()
