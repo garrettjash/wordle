@@ -13,11 +13,8 @@ from WordleDictionary import FIVE_LETTER_WORDS
 from WordleGraphics import WordleGWindow, N_COLS, N_ROWS
 
 def randomWord():
-<<<<<<< HEAD
     return random.choice(FIVE_LETTER_WORDS).upper()
-=======
-    return random.choice(FIVE_LETTER_WORDS)
->>>>>>> 789f27edbee68d7b64b32b41c014728ea379e9ae
+
 
 def wordle():
     gw = WordleGWindow()
