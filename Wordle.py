@@ -21,13 +21,17 @@ def wordle():
     gw = WordleGWindow()
     iGuessCounter = 0
 
+    chosen_word = randomWord()
+
     def enter_action(s):
         nonlocal iGuessCounter
         # This line makes sure the empty cells don't count as spaces
-        s = s.strip()
+        s = s.strip().lower()
         # If the lenght is less than 5 characters, don't submit and send a message
         if len(s) < 5:
             gw.show_message("Try a longer word!")
+        elif not checkValidWord(s):
+            gw.show_message("Not a valid word.")
         #If the word is valid, add one to the guess counter and set the current row to the new guess counter (next row)
         else:
             # This stops the prgram fro blowing up after guess 6
@@ -37,7 +41,10 @@ def wordle():
             else:
                 gw.show_message("Game Over!")
 
-    chosen_word = randomWord()
+    def checkValidWord(userGuess):
+        print(f"User Guess: {userGuess}")
+        return userGuess.lower() in FIVE_LETTER_WORDS
+
 
     # MILESTONE 1: This sets the first row to the random word
     # for iCount in range(N_COLS): #5 because they are all 5 letter words
