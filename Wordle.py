@@ -70,7 +70,7 @@ def wordle():
                         gw.set_square_color(iGuessCounter - 1, iEnd, MISSING_COLOR)
                 gw.show_message("Game Over!")
                 # Ask the group if we want this?
-                messagebox.showinfo("Game Over", "Game Over! Nice try, the word was ", chosen_word)
+                messagebox.showinfo("Game Over", "Game Over! Nice try, the word was " +  chosen_word)
                 sys.exit()
 
             # Potential Things to Figure Out:
