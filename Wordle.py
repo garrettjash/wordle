@@ -31,7 +31,7 @@ def wordle():
         # If the length is less than 5 characters, don't submit and send a message
         if len(s) < N_COLS:
             gw.show_message(chosen_word)
-            #gw.show_message("Try a longer word!")
+            #gw.show_message("Try a longer word!")                                       GARRETT DO NOT FORGET TO UNCOMMENT THIS OUT :)
         elif not checkValidWord(s):
             gw.show_message("Not a valid word.")
         #If the word is valid, add one to the guess counter and set the current row to the new guess counter (next row)
@@ -43,31 +43,44 @@ def wordle():
                 gw.set_current_row(iGuessCounter - 1)
                 # For loop to look through each letter of the user guess
                 for iCount in range(N_COLS):
-                    # if the letter is correct, set the keyboard color and the square to green
-                    if s[iCount] == chosen_word[iCount]:
-                        gw.set_key_color(s[iCount], CORRECT_COLOR)
-                        gw.set_square_color(iGuessCounter - 2, iCount, CORRECT_COLOR)
-                    # If the letter is incorrect, color it gray -NEED TO FIX AND CHANGE IT YELLOW 
-                    elif s[iCount] in chosen_word:
-                        gw.set_key_color(s[iCount], PRESENT_COLOR)
-                        gw.set_square_color(iGuessCounter - 2, iCount, PRESENT_COLOR)
-                    else: 
-                        gw.set_key_color(s[iCount], MISSING_COLOR)
-                        gw.set_square_color(iGuessCounter - 2, iCount, MISSING_COLOR)
-
+                    # Checks is the guess is the correct word
+                    if chosen_word == s:
+                        # Set all the squares green on a correct guess
+                        for iCorrect in range(N_COLS):
+                            gw.set_key_color(s[iCorrect], CORRECT_COLOR)
+                            gw.set_square_color(iGuessCounter - 2, iCorrect, CORRECT_COLOR)
+                        gw.show_message("Congratulations!")
+                        messagebox.showinfo("You Won!", "Congratulations, You Guessed the Word!")
+                        sys.exit()
+                    else:
+                        # if the letter is correct, set the keyboard color and the square to green
+                        if s[iCount] == chosen_word[iCount]:
+                            gw.set_key_color(s[iCount], CORRECT_COLOR)
+                            gw.set_square_color(iGuessCounter - 2, iCount, CORRECT_COLOR)
+                        # If the letter is incorrect, color it properly
+                        elif s[iCount] in chosen_word:
+                            if gw.get_key_color(s[iCount]) == CORRECT_COLOR:
+                                gw.set_square_color(iGuessCounter - 2, iCount, PRESENT_COLOR)
+                            else:
+                                gw.set_key_color(s[iCount], PRESENT_COLOR)
+                                gw.set_square_color(iGuessCounter - 2, iCount, PRESENT_COLOR)
+                        else: 
+                            gw.set_key_color(s[iCount], MISSING_COLOR)
+                            gw.set_square_color(iGuessCounter - 2, iCount, MISSING_COLOR)
+            # Code that executes after the last guess
             else:
                 for iEnd in range(N_COLS):
                     # if the letter is correct, set the keyboard color and the square to green
                     if s[iEnd] == chosen_word[iEnd]:
                         gw.set_key_color(s[iEnd], CORRECT_COLOR)
-                        gw.set_square_color(iGuessCounter - 1, iEnd, CORRECT_COLOR)
+                        gw.set_square_color(5, iEnd, CORRECT_COLOR)
                     # If the letter is incorrect, color it gray -NEED TO FIX AND CHANGE IT YELLOW 
                     elif s[iEnd] in chosen_word:
                         gw.set_key_color(s[iEnd], PRESENT_COLOR)
-                        gw.set_square_color(iGuessCounter - 1, iEnd, PRESENT_COLOR)
+                        gw.set_square_color(5, iEnd, PRESENT_COLOR)
                     else: 
                         gw.set_key_color(s[iEnd], MISSING_COLOR)
-                        gw.set_square_color(iGuessCounter - 1, iEnd, MISSING_COLOR)
+                        gw.set_square_color(5, iEnd, MISSING_COLOR)
                 gw.show_message("Game Over!")
                 # Ask the group if we want this?
                 messagebox.showinfo("Game Over", "Game Over! Nice try, the word was " +  chosen_word)
@@ -75,7 +88,7 @@ def wordle():
 
             # Potential Things to Figure Out:
                 # When it says game over, you can still backspace and keep entering 
-                # When a word is green, it change to yellow (is that a problem idek?)
+                # While loop to end the game on correct guess - Wasn't working, chat said do it a different way
 
     def checkValidWord(userGuess):
         print(f"User Guess: {userGuess}")
