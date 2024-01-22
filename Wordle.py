@@ -31,7 +31,7 @@ def wordle():
         # If the length is less than 5 characters, don't submit and send a message
         if len(s) < N_COLS:
             gw.show_message(chosen_word)
-            #gw.show_message("Try a longer word!")                                       GARRETT DO NOT FORGET TO UNCOMMENT THIS OUT :)
+            #gw.show_message("Try a longer word!")                                       #GARRETT DO NOT FORGET TO UNCOMMENT THIS OUT :)
         elif not checkValidWord(s):
             gw.show_message("Not a valid word.")
         #If the word is valid, add one to the guess counter and set the current row to the new guess counter (next row)
@@ -86,9 +86,10 @@ def wordle():
                 messagebox.showinfo("Game Over", "Game Over! Nice try, the word was " +  chosen_word)
                 sys.exit()
 
-            # Potential Things to Figure Out:
-                # When it says game over, you can still backspace and keep entering 
-                # While loop to end the game on correct guess - Wasn't working, chat said do it a different way
+            # Left to do:
+                # On guess 6 it says nice try even if they guess it right
+                # Double letters
+                # Clear boxes if they guess an invalid word
 
     def checkValidWord(userGuess):
         print(f"User Guess: {userGuess}")

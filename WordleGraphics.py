@@ -103,13 +103,13 @@ class WordleGWindow:
                 ch = tke.upper()
             else:
                 ch = tke.char.upper()
-            if ch == "\007" or ch == "\177" or ch == "DELETE":
+            if ch == "\007" or ch == "\177" or ch == "\b" or ch == "DELETE" or ch in ["\x7F", "\x08"]:
                 self.show_message("")
                 if self._row < N_ROWS and self._col > 0:
                     self._col -= 1
                     sq = self._grid[self._row][self._col]
                     sq.set_letter(" ")
-            elif ch == "\r" or ch == "\n" or ch == "ENTER":
+            elif ch == "\r" or ch == "\n" or ch == '\r\n' or ch == "ENTER" or ch == 'RETURN':
                 self.show_message("")
                 s = ""
                 for col in range(N_COLS):
