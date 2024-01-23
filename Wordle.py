@@ -34,6 +34,7 @@ def wordle():
             #gw.show_message("Try a longer word!")                                       #GARRETT DO NOT FORGET TO UNCOMMENT THIS OUT :)
         elif not checkValidWord(s):
             gw.show_message("Not a valid word.")
+            gw.set_current_row(iGuessCounter - 1)
         #If the word is valid, add one to the guess counter and set the current row to the new guess counter (next row)
         else:
             # This stops the program from blowing up after guess 6
@@ -69,31 +70,36 @@ def wordle():
                             gw.set_square_color(iGuessCounter - 2, iCount, MISSING_COLOR)
             # Code that executes after the last guess
             else:
-                for iEnd in range(N_COLS):
-                    # if the letter is correct, set the keyboard color and the square to green
-                    if s[iEnd] == chosen_word[iEnd]:
-                        gw.set_key_color(s[iEnd], CORRECT_COLOR)
-                        gw.set_square_color(5, iEnd, CORRECT_COLOR)
-                    # If the letter is incorrect, color it gray -NEED TO FIX AND CHANGE IT YELLOW 
-                    elif s[iEnd] in chosen_word:
-                        gw.set_key_color(s[iEnd], PRESENT_COLOR)
-                        gw.set_square_color(5, iEnd, PRESENT_COLOR)
-                    else: 
-                        gw.set_key_color(s[iEnd], MISSING_COLOR)
-                        gw.set_square_color(5, iEnd, MISSING_COLOR)
-                gw.show_message("Game Over!")
-                # Ask the group if we want this?
-                messagebox.showinfo("Game Over", "Game Over! Nice try, the word was " +  chosen_word)
+                if s == chosen_word:
+                    messagebox.showinfo("You Won!", "Congratulations, You Guessed the Word!")
+                else:
+                    for iEnd in range(N_COLS):
+                        # if the letter is correct, set the keyboard color and the square to green
+                        if s[iEnd] == chosen_word[iEnd]:
+                            gw.set_key_color(s[iEnd], CORRECT_COLOR)
+                            gw.set_square_color(5, iEnd, CORRECT_COLOR)
+                        # If the letter is incorrect, color it gray -NEED TO FIX AND CHANGE IT YELLOW 
+                        elif s[iEnd] in chosen_word:
+                            gw.set_key_color(s[iEnd], PRESENT_COLOR)
+                            gw.set_square_color(5, iEnd, PRESENT_COLOR)
+                        else: 
+                            gw.set_key_color(s[iEnd], MISSING_COLOR)
+                            gw.set_square_color(5, iEnd, MISSING_COLOR)
+                    gw.show_message("Game Over!")
+                    # Ask the group if we want this?
+                    messagebox.showinfo("Game Over", "Game Over! Nice try, the word was " +  chosen_word)
                 sys.exit()
 
             # Left to do:
-                # On guess 6 it says nice try even if they guess it right
+                # On guess 6 it says nice try even if they guess it right - should be ready
                 # Double letters
                 # Clear boxes if they guess an invalid word
 
     def checkValidWord(userGuess):
         print(f"User Guess: {userGuess}")
         return userGuess.lower() in FIVE_LETTER_WORDS
+    
+    
 
     gw.add_enter_listener(enter_action)
 
