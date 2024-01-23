@@ -67,6 +67,8 @@ class WordleGWindow:
     def __init__(self):
         """Creates the Wordle window."""
 
+
+
         def create_grid():
             return [
                 [
@@ -163,6 +165,9 @@ class WordleGWindow:
                                 highlightthickness=0)
         canvas.pack()
         self._canvas = canvas
+                # Create a button to toggle hard mode
+        # self._toggle_button = tkinter.Button(self._canvas, text="Toggle Hard Mode", command=self.toggle_hard_mode)
+        # self._toggle_button.pack(side=tkinter.TOP)  # Adjust the position as needed
         self._grid = create_grid()
         self._message = create_message()
         self._keys = create_keyboard()
@@ -172,7 +177,20 @@ class WordleGWindow:
         root.bind("<ButtonRelease-1>", release_action)
         self._row = 0
         self._col = 0
+
+
         atexit.register(start_event_loop)
+
+        self._hard_mode = False  # Initialize hard mode to False
+
+
+
+    def toggle_hard_mode(self):
+        """Toggle the hard mode state."""
+        self._hard_mode = not self._hard_mode
+
+        # Additional logic for adjusting the game based on hard mode can be added here
+        self.show_message(f"Hard Mode: {'On' if self._hard_mode else 'Off'}")
 
     def get_square_letter(self, row, col):
         return self._grid[row][col].get_letter()
