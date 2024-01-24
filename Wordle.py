@@ -99,6 +99,41 @@ def wordle():
         print(f"User Guess: {userGuess}")
         return userGuess.lower() in FIVE_LETTER_WORDS
     
+    def evaluate_guess(guess, target_word):
+        """
+        Evaluates the guess against the target word and returns a list of colors
+        representing the evaluation result for each letter in the guess.
+        """
+        # Initialize colors as MISSING_COLOR for all letters in the guess
+        result_colors = [MISSING_COLOR for _ in guess]
+
+        # First pass: mark correct letters in the correct position (green)
+        for i in range(len(guess)):
+            if guess[i] == target_word[i]:
+                result_colors[i] = CORRECT_COLOR
+
+        # Keep track of how many times each letter appears in the target word
+        target_letter_count = {}
+        for letter in target_word:
+            if letter not in target_letter_count:
+                target_letter_count[letter] = 1
+            else:
+                target_letter_count[letter] += 1
+
+        # Subtract the green matches from the target letter count
+        for i in range(len(guess)):
+            if result_colors[i] == CORRECT_COLOR and guess[i] in target_letter_count:
+                target_letter_count[guess[i]] -= 1
+
+        # Second pass: mark correct letters in the wrong position (yellow)
+        for i in range(len(guess)):
+            if guess[i] in target_word and result_colors[i] != CORRECT_COLOR:
+                if target_letter_count[guess[i]] > 0:
+                    result_colors[i] = PRESENT_COLOR
+                    target_letter_count[guess[i]] -= 1
+
+        return result_colors
+    
     
 
     gw.add_enter_listener(enter_action)
