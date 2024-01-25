@@ -107,6 +107,7 @@ class WordleGWindow:
                 ch = tke.char.upper()
             if ch == "\007" or ch == "\177" or ch == "\b" or ch == "DELETE" or ch in ["\x7F", "\x08"]:
                 self.show_message("")
+                print("I am getting a delete")
                 if self._row < N_ROWS and self._col > 0:
                     self._col -= 1
                     sq = self._grid[self._row][self._col]
@@ -114,6 +115,7 @@ class WordleGWindow:
             elif ch == "\r" or ch == "\n" or ch == '\r\n' or ch == "ENTER" or ch == 'RETURN' or ch == "\x03":
                 self.show_message("")
                 s = ""
+                print("I am getting an enter")
                 for col in range(N_COLS):
                     s += self._grid[self._row][col].get_letter();
                 for fn in self._enter_listeners:
