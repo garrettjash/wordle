@@ -102,7 +102,7 @@ class WordleGWindow:
 
         def key_action(tke):
             if isinstance(tke, str):
-                ch = tke.keysym.upper()
+                ch = tke.upper()
             else:
                 ch = tke.char.upper()
             if ch == "\007" or ch == "\177" or ch == "\b" or ch == "DELETE" or ch in ["\x7F", "\x08"]:
@@ -111,7 +111,7 @@ class WordleGWindow:
                     self._col -= 1
                     sq = self._grid[self._row][self._col]
                     sq.set_letter(" ")
-            elif ch == "\r" or ch == "\n" or ch == '\r\n' or ch == "ENTER" or ch == 'RETURN':
+            elif ch == "\r" or ch == "\n" or ch == '\r\n' or ch == "ENTER" or ch == 'RETURN' or ch == "\x03":
                 self.show_message("")
                 s = ""
                 for col in range(N_COLS):
