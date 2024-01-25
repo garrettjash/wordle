@@ -18,6 +18,19 @@ KEY_COLOR = "#DDDDDD"
 def randomWord():
     return random.choice(FIVE_LETTER_WORDS).upper()
 
+def checkValidWord(userGuess):
+    print(f"User Guess: {userGuess}")
+    return userGuess.lower() in FIVE_LETTER_WORDS
+
+def checkDoubles(chosen_word):
+    double_letters = []
+    for i in range(len(chosen_word)):
+        modified_word = chosen_word[:i] + chosen_word[i+1:]
+        if chosen_word[i] in modified_word and chosen_word[i] not in double_letters:
+            double_letters.append(chosen_word[i])
+
+    return double_letters if double_letters else False
+
 def wordle():
 
     gw = WordleGWindow()
@@ -54,20 +67,61 @@ def wordle():
                         messagebox.showinfo("You Won!", "Congratulations, You Guessed the Word!")
                         sys.exit()
                     else:
-                        # if the letter is correct, set the keyboard color and the square to green
-                        if s[iCount] == chosen_word[iCount]:
-                            gw.set_key_color(s[iCount], CORRECT_COLOR)
-                            gw.set_square_color(iGuessCounter - 2, iCount, CORRECT_COLOR)
-                        # If the letter is incorrect, color it properly
-                        elif s[iCount] in chosen_word:
-                            if gw.get_key_color(s[iCount]) == CORRECT_COLOR:
-                                gw.set_square_color(iGuessCounter - 2, iCount, PRESENT_COLOR)
-                            else:
-                                gw.set_key_color(s[iCount], PRESENT_COLOR)
-                                gw.set_square_color(iGuessCounter - 2, iCount, PRESENT_COLOR)
-                        else: 
-                            gw.set_key_color(s[iCount], MISSING_COLOR)
-                            gw.set_square_color(iGuessCounter - 2, iCount, MISSING_COLOR)
+                        # This if statement checks for double lettes and sets the colors appropriately
+                        if checkDoubles(s) == False:
+                            # if the letter is correct, set the keyboard color and the square to green
+                            if s[iCount] == chosen_word[iCount]:
+                                gw.set_key_color(s[iCount], CORRECT_COLOR)
+                                gw.set_square_color(iGuessCounter - 2, iCount, CORRECT_COLOR)
+                            # If the letter is incorrect, color it properly
+                            elif s[iCount] in chosen_word:
+                                if gw.get_key_color(s[iCount]) == CORRECT_COLOR:
+                                    gw.set_square_color(iGuessCounter - 2, iCount, PRESENT_COLOR)
+                                else:
+                                    gw.set_key_color(s[iCount], PRESENT_COLOR)
+                                    gw.set_square_color(iGuessCounter - 2, iCount, PRESENT_COLOR)
+                            else: 
+                                gw.set_key_color(s[iCount], MISSING_COLOR)
+                                gw.set_square_color(iGuessCounter - 2, iCount, MISSING_COLOR)
+                        else: # If the entered word has double letters
+                            # used_letters = checkDoubles(s) - maybe create a function that gets used letters and not doubles
+                            double_letters = checkDoubles(s)
+
+                            for iCount, guess_letter in enumerate(s):
+                                if guess_letter in double_letters and guess_letter in chosen_word:
+                                    letter_count_in_word = chosen_word.count(guess_letter)  # Number of times the guessed letter appears in the chosen word
+                                    letter_used_count = s[:iCount + 1].count(guess_letter)  # Number of times the guessed letter has been used
+                                    if letter_used_count <= letter_count_in_word:
+                                        if guess_letter == chosen_word[iCount]:
+                                            gw.set_key_color(guess_letter.upper(), CORRECT_COLOR)
+                                            gw.set_square_color(iGuessCounter - 2, iCount, CORRECT_COLOR)
+                                        elif guess_letter in chosen_word:
+                                            if gw.get_key_color(guess_letter.upper()) == CORRECT_COLOR:
+                                                gw.set_square_color(iGuessCounter - 2, iCount, PRESENT_COLOR)
+                                            else:
+                                                gw.set_key_color(guess_letter.upper(), PRESENT_COLOR)
+                                                gw.set_square_color(iGuessCounter - 2, iCount, PRESENT_COLOR)
+                                        else:
+                                            gw.set_key_color(guess_letter.upper(), MISSING_COLOR)
+                                            gw.set_square_color(iGuessCounter - 2, iCount, MISSING_COLOR)
+                                    else:
+                                        gw.set_square_color(iGuessCounter - 2, iCount, MISSING_COLOR)
+                                        gw.set_key_color(guess_letter.upper(), MISSING_COLOR)
+                                else:
+                                    # If the letter is correct, set the keyboard color and the square to green
+                                    if guess_letter == chosen_word[iCount]:
+                                        gw.set_key_color(guess_letter.upper(), CORRECT_COLOR)
+                                        gw.set_square_color(iGuessCounter - 2, iCount, CORRECT_COLOR)
+                                    # If the letter is incorrect, color it properly
+                                    elif guess_letter in chosen_word:
+                                        if gw.get_key_color(guess_letter.upper()) == CORRECT_COLOR:
+                                            gw.set_square_color(iGuessCounter - 2, iCount, PRESENT_COLOR)
+                                        else:
+                                            gw.set_key_color(guess_letter.upper(), PRESENT_COLOR)
+                                            gw.set_square_color(iGuessCounter - 2, iCount, PRESENT_COLOR)
+                                    else:
+                                        gw.set_key_color(guess_letter.upper(), MISSING_COLOR)
+                                        gw.set_square_color(iGuessCounter - 2, iCount, MISSING_COLOR)
             # Code that executes after the last guess
             else:
                 if s == chosen_word:
@@ -90,22 +144,10 @@ def wordle():
                     messagebox.showinfo("Game Over", "Game Over! Nice try, the word was " +  chosen_word)
                 sys.exit()
 
-            # Left to do:
-                # On guess 6 it says nice try even if they guess it right - should be ready
-                # Double letters
-                # Clear boxes if they guess an invalid word
-
-    def checkValidWord(userGuess):
-        print(f"User Guess: {userGuess}")
-        return userGuess.lower() in FIVE_LETTER_WORDS
-    
-    
-
     gw.add_enter_listener(enter_action)
 
 if __name__ == "__main__":
     wordle()
-
 
 # Logic:
 # User types in a word

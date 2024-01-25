@@ -102,7 +102,7 @@ class WordleGWindow:
 
         def key_action(tke):
             if isinstance(tke, str):
-                ch = tke.upper()
+                ch = tke.keysym.upper()
             else:
                 ch = tke.char.upper()
             if ch == "\007" or ch == "\177" or ch == "\b" or ch == "DELETE" or ch in ["\x7F", "\x08"]:
@@ -165,7 +165,7 @@ class WordleGWindow:
                                 highlightthickness=0)
         canvas.pack()
         self._canvas = canvas
-                # Create a button to toggle hard mode
+                #Create a button to toggle hard mode
         # self._toggle_button = tkinter.Button(self._canvas, text="Toggle Hard Mode", command=self.toggle_hard_mode)
         # self._toggle_button.pack(side=tkinter.TOP)  # Adjust the position as needed
         self._grid = create_grid()
