@@ -107,14 +107,14 @@ class WordleGWindow:
                 ch = tke.char.upper()
             if ch == "\007" or ch == "\177" or ch == "\b" or ch == "DELETE" or ch in ["\x7F", "\x08"] or ch == chr(127) or ch == chr(8) or ch == chr(4):
                 self.show_message("")
-                print("110 delete ch: ", ord(tke))
+                print("110 delete ch: ", ch.encode('utf-8').hex())
                 if self._row < N_ROWS and self._col > 0:
                     self._col -= 1
                     sq = self._grid[self._row][self._col]
                     sq.set_letter(" ")
             elif ch == "\r" or ch == "\n" or ch == '\r\n' or ch == "ENTER" or ch == 'RETURN' or ch == chr(36):
                 self.show_message("")
-                print("117 enter ch: ", ord(tke))
+                print("117 enter ch: ", ch.encode('utf-8').hex())
                 s = ""
                 for col in range(N_COLS):
                     s += self._grid[self._row][col].get_letter()
@@ -122,7 +122,7 @@ class WordleGWindow:
                     fn(s)
             elif ch.isalpha():
                 self.show_message("")
-                print("125 letter ch: ", ord(tke))
+                print("125 letter ch: ", ch.encode('utf-8').hex())
                 if self._row < N_ROWS and self._col < N_COLS:
                     sq = self._grid[self._row][self._col]
                     sq.set_letter(ch)
@@ -130,7 +130,7 @@ class WordleGWindow:
             else:
                 print("else ch: ", ch)
                 print("else: ", tke)
-                print("131 else ch: ", ord(tke))                          # prolly delete this else statement later
+                print("131 else ch: ", ch.encode('utf-8').hex())                          # prolly delete this else statement later
 
         def press_action(tke):
             self._down_x = tke.x
