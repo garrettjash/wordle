@@ -128,6 +128,8 @@ class WordleGWindow:
                     sq.set_letter(ch)
                     self._col += 1
             else:
+                print("else ch: ", ch)
+                print("else: ", tke)
                 print("131 else ch: ", ord(tke))                          # prolly delete this else statement later
 
         def press_action(tke):
