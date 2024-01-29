@@ -141,17 +141,6 @@ def wordle():
 if __name__ == "__main__":
     wordle()
 
-
-# Logic:
-# User types in a word
-# User presses enter
-# Checks to see if the word is valid
-# If valid word:
-#     Guess count increase by 1
-#     Iterate to next row
-# If invalid: 
-#     No count increase, display message maybe?
-
 # WordleGWindow() Creates and displays the graphics window.
 # set_square_letter(row, col, letter) Sets the letter in the specified row and column.
 # get_square_letter(row, col) Returns the letter in the specified row and column.
