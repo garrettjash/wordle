@@ -106,7 +106,7 @@ class WordleGWindow:
             else:
                 ch = tke.char.upper()
                 keysym = tke.keysym
-            if ch == "\007" or ch == "\177" or ch == "\b" or ch == "DELETE" or ch in ["\x7F", "\x08"] or ch == chr(127) or ch == chr(8) or ch == chr(4) or keysym == "Delete":
+            if ch == "\007" or ch == "\177" or ch == "\b" or ch == "DELETE" or ch in ["\x7F", "\x08"] or ch == chr(127) or ch == chr(8) or ch == chr(4) or keysym == "BackSpace" or ch.encode('utf-8').hex() == '44454c455445':
                 self.show_message("")
                 print("110 delete ch: ", ch.encode('utf-8').hex())
                 if self._row < N_ROWS and self._col > 0:
