@@ -195,11 +195,17 @@ def checkDoubles(chosen_word):
 
     return double_letters if double_letters else False
 
+
+
+#HARD MODE *** make a toggle ? or ask a question at the beginning of the game?
 def wordle():
 
     gw = WordleGWindow()
     iGuessCounter = 1
     chosen_word = randomWord()
+
+    correct_letters = [''] * N_COLS  # Tracks the letters in the correct position
+    present_letters = []  # Tracks letters that are present but not in the right spot
 
     def enter_action(s):
         nonlocal iGuessCounter
@@ -211,6 +217,9 @@ def wordle():
             #gw.show_message("Try a longer word!")                                       #GARRETT DO NOT FORGET TO UNCOMMENT THIS OUT :)
         elif not checkValidWord(s):
             gw.show_message("Not a valid word.")
+            gw.set_current_row(iGuessCounter - 1)
+        elif not checkHardMode(s):
+            gw.show_message("You must use all green and yellow letters")
             gw.set_current_row(iGuessCounter - 1)
         #If the word is valid, add one to the guess counter and set the current row to the new guess counter (next row)
         else:
@@ -237,13 +246,19 @@ def wordle():
                             if s[iCount] == chosen_word[iCount]:
                                 gw.set_key_color(s[iCount], CORRECT_COLOR)
                                 gw.set_square_color(iGuessCounter - 2, iCount, CORRECT_COLOR)
+                                correct_letters[iCount] = s[iCount]
                             # If the letter is incorrect, color it properly
                             elif s[iCount] in chosen_word:
                                 if gw.get_key_color(s[iCount]) == CORRECT_COLOR:
                                     gw.set_square_color(iGuessCounter - 2, iCount, PRESENT_COLOR)
+                                    if s[iCount] not in present_letters: #shouldnt happen
+                                        present_letters.append(s[iCount])
+
                                 else:
                                     gw.set_key_color(s[iCount], PRESENT_COLOR)
                                     gw.set_square_color(iGuessCounter - 2, iCount, PRESENT_COLOR)
+                                    if s[iCount] not in present_letters:
+                                         present_letters.append(s[iCount])
                             else: 
                                 gw.set_key_color(s[iCount], MISSING_COLOR)
                                 gw.set_square_color(iGuessCounter - 2, iCount, MISSING_COLOR)
@@ -259,12 +274,17 @@ def wordle():
                                         if guess_letter == chosen_word[iCount]:
                                             gw.set_key_color(guess_letter.upper(), CORRECT_COLOR)
                                             gw.set_square_color(iGuessCounter - 2, iCount, CORRECT_COLOR)
+                                            correct_letters[iCount] = guess_letter
                                         elif guess_letter in chosen_word:
                                             if gw.get_key_color(guess_letter.upper()) == CORRECT_COLOR:
                                                 gw.set_square_color(iGuessCounter - 2, iCount, PRESENT_COLOR)
+                                                if s[iCount] not in present_letters: #shouldnt happen
+                                                    present_letters.append(s[iCount])
                                             else:
                                                 gw.set_key_color(guess_letter.upper(), PRESENT_COLOR)
                                                 gw.set_square_color(iGuessCounter - 2, iCount, PRESENT_COLOR)
+                                                if s[iCount] not in present_letters:
+                                                    present_letters.append(s[iCount])
                                         else:
                                             gw.set_key_color(guess_letter.upper(), MISSING_COLOR)
                                             gw.set_square_color(iGuessCounter - 2, iCount, MISSING_COLOR)
@@ -276,13 +296,18 @@ def wordle():
                                     if guess_letter == chosen_word[iCount]:
                                         gw.set_key_color(guess_letter.upper(), CORRECT_COLOR)
                                         gw.set_square_color(iGuessCounter - 2, iCount, CORRECT_COLOR)
+                                        correct_letters[iCount] = guess_letter
                                     # If the letter is incorrect, color it properly
                                     elif guess_letter in chosen_word:
                                         if gw.get_key_color(guess_letter.upper()) == CORRECT_COLOR:
                                             gw.set_square_color(iGuessCounter - 2, iCount, PRESENT_COLOR)
+                                            if s[iCount] not in present_letters:
+                                                present_letters.append(s[iCount])
                                         else:
                                             gw.set_key_color(guess_letter.upper(), PRESENT_COLOR)
                                             gw.set_square_color(iGuessCounter - 2, iCount, PRESENT_COLOR)
+                                            if s[iCount] not in present_letters:
+                                                present_letters.append(s[iCount])
                                     else:
                                         gw.set_key_color(guess_letter.upper(), MISSING_COLOR)
                                         gw.set_square_color(iGuessCounter - 2, iCount, MISSING_COLOR)
@@ -296,6 +321,7 @@ def wordle():
                         if s[iEnd] == chosen_word[iEnd]:
                             gw.set_key_color(s[iEnd], CORRECT_COLOR)
                             gw.set_square_color(5, iEnd, CORRECT_COLOR)
+                            correct_letters[iCount] = guess_letter
                         # If the letter is incorrect, color it gray -NEED TO FIX AND CHANGE IT YELLOW 
                         elif s[iEnd] in chosen_word:
                             gw.set_key_color(s[iEnd], PRESENT_COLOR)
@@ -310,8 +336,23 @@ def wordle():
 
     gw.add_enter_listener(enter_action)
 
+    def checkHardMode(userGuess):
+        for x in range(len(correct_letters)):
+            if not correct_letters[x] == '':
+                if not userGuess[x] == correct_letters[x]:
+                    return False
+                
+        for y in range(len(present_letters)):
+            if present_letters[y] not in userGuess:
+                return False
+            
+        return True
+
+
 if __name__ == "__main__":
     wordle()
+
+
 
 # Logic:
 # User types in a word
