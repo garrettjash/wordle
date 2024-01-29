@@ -101,6 +101,7 @@ class WordleGWindow:
                                  MESSAGE_Y)
 
         def key_action(tke):
+            keysym = None
             if isinstance(tke, str):
                 ch = tke.upper()
             else:
