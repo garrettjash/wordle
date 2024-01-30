@@ -15,6 +15,7 @@ from WordleDictionary import FIVE_LETTER_WORDS
 from WordleGraphics import WordleGWindow, N_COLS, N_ROWS, CORRECT_COLOR, PRESENT_COLOR, MISSING_COLOR, UNKNOWN_COLOR
 KEY_COLOR = "#DDDDDD" 
 
+
 def randomWord():
     return random.choice(FIVE_LETTER_WORDS).upper()
 
@@ -138,32 +139,11 @@ def wordle():
 
     gw.add_enter_listener(enter_action)
 
-if __name__ == "__main__":
-        wordle()
+#if __name__ == "__main__":
+        #wordle()
 
 import tkinter as tk
 from tkinter import messagebox
-
-def ask_user_mode():
-    root = tk.Tk()
-    # Hide the main window
-    root.withdraw()
-
-    # Ask the user for mode
-    user_response = messagebox.askyesno("Mode Selection", "Would you like to play in Hard Mode?")
-    
-    # 'user_response' will be True for "Yes" (Hard Mode), and False for "No" (Regular Mode)
-    hardMode = user_response
-
-    root.destroy()
-    return hardMode
-
-if __name__ == "__main__":
-    hardMode = ask_user_mode()
-    if hardMode:
-        print("Hard Mode selected")
-    else:
-        print("Regular Mode selected")
 
 import random
 import sys
@@ -192,7 +172,7 @@ def checkDoubles(chosen_word):
 
 
 #HARD MODE *** make a toggle ? or ask a question at the beginning of the game?
-def wordle():
+def wordleHard():
 
     gw = WordleGWindow()
     iGuessCounter = 1
@@ -341,10 +321,34 @@ def wordle():
                 return False
             
         return True
+    
 
+def ask_user_mode():
+    root = tk.Tk()
+    # Hide the main window
+    root.withdraw()
+
+    # Ask the user for mode
+    user_response = messagebox.askyesno("Mode Selection", "Would you like to play in Hard Mode?")
+    
+    # 'user_response' will be True for "Yes" (Hard Mode), and False for "No" (Regular Mode)
+    hardMode = user_response
+
+    root.destroy()
+    return hardMode
 
 if __name__ == "__main__":
-    wordle()
+    hardMode = ask_user_mode()
+    if hardMode:
+        print("Hard Mode selected")
+        wordleHard()
+    else:
+        print("Regular Mode selected")
+        wordle()
+
+
+#if __name__ == "__main__":
+    #wordle()
 
 
 
