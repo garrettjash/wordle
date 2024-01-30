@@ -139,26 +139,31 @@ def wordle():
     gw.add_enter_listener(enter_action)
 
 if __name__ == "__main__":
-    wordle()
+        wordle()
 
-# WordleGWindow() Creates and displays the graphics window.
-# set_square_letter(row, col, letter) Sets the letter in the specified row and column.
-# get_square_letter(row, col) Returns the letter in the specified row and column.
-# add_enter_listener(fn) Specifies a callback function for the ENTER key.
-# show_message(msg) Shows a message below the squares.
-# set_square_color(row, col, color) Sets the color of the specified square.
-# get_square_color(row, col) Returns the color of the specified square.
-# set_current_row(row) Sets the row in which typed characters appear.
-# get_current_row() Gets the current row.
-# set_key_color(letter, color) Sets the color of the specified key letter.
-# get_key_color(l# File: Wordle.py
+import tkinter as tk
+from tkinter import messagebox
 
-"""
-This module is the starter file for the Wordle assignment.
+def ask_user_mode():
+    root = tk.Tk()
+    # Hide the main window
+    root.withdraw()
 
-Group 2-2
-Garrett Ashcroft, Vivian Solgere, Caroline Tobler, Jared Rosenlund
-"""
+    # Ask the user for mode
+    user_response = messagebox.askyesno("Mode Selection", "Would you like to play in Hard Mode?")
+    
+    # 'user_response' will be True for "Yes" (Hard Mode), and False for "No" (Regular Mode)
+    hardMode = user_response
+
+    root.destroy()
+    return hardMode
+
+if __name__ == "__main__":
+    hardMode = ask_user_mode()
+    if hardMode:
+        print("Hard Mode selected")
+    else:
+        print("Regular Mode selected")
 
 import random
 import sys
