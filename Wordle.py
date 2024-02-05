@@ -25,6 +25,7 @@ def wordle():
     iGuessCounter = 1
     chosen_word = randomWord()
 
+
     def enter_action(s):
         nonlocal iGuessCounter
         # This line makes sure the empty cells don't count as spaces
@@ -180,6 +181,7 @@ def wordleHard():
 
     correct_letters = [''] * N_COLS  # Tracks the letters in the correct position
     present_letters = []  # Tracks letters that are present but not in the right spot
+
 
     def enter_action(s):
         nonlocal iGuessCounter
@@ -337,20 +339,26 @@ def ask_user_mode():
     user_response2 = messagebox.askyesno("Color Selection", "Would you like to play in color blind mode?")
     colorBlind = user_response2
 
-    if(colorBlind):
-        print("colorBlindColorsChanged")
-
     root.destroy()
-    return hardMode
+    return hardMode, colorBlind
 
 if __name__ == "__main__":
-    hardMode = ask_user_mode()
+    hardMode, colorBlind = ask_user_mode()
+
+    if colorBlind:
+        setColorBlind()
+        print("colorBlindSet")
+
     if hardMode:
         print("Hard Mode selected")
         wordleHard()
     else:
         print("Regular Mode selected")
         wordle()
+
+    
+
+
 
 
 #if __name__ == "__main__":
