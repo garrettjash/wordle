@@ -334,6 +334,12 @@ def ask_user_mode():
     # 'user_response' will be True for "Yes" (Hard Mode), and False for "No" (Regular Mode)
     hardMode = user_response
 
+    user_response2 = messagebox.askyesno("Color Selection", "Would you like to play in color blind mode?")
+    colorBlind = user_response2
+
+    if(colorBlind):
+        print("colorBlindColorsChanged")
+
     root.destroy()
     return hardMode
 
