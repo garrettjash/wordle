@@ -199,7 +199,7 @@ def wordleHard():
             gw.show_message("Not a valid word.")
             gw.set_current_row(iGuessCounter - 1)
         elif not checkHardMode(s):
-            gw.show_message("You must use all green and yellow letters")
+            gw.show_message("You must use all revealed clues.")
             gw.set_current_row(iGuessCounter - 1)
         #If the word is valid, add one to the guess counter and set the current row to the new guess counter (next row)
         else:
