@@ -19,6 +19,9 @@ KEY_COLOR = "#DDDDDD"
 def randomWord():
     return random.choice(FIVE_LETTER_WORDS).upper()
 
+def setColorBlind():
+    CORRECT_COLOR = "#1E88E5"
+
 def wordle():
 
     gw = WordleGWindow()
@@ -151,7 +154,7 @@ import sys
 from tkinter import messagebox
 
 from WordleDictionary import FIVE_LETTER_WORDS
-from WordleGraphics import WordleGWindow, N_COLS, N_ROWS, CORRECT_COLOR, PRESENT_COLOR, MISSING_COLOR, UNKNOWN_COLOR
+from WordleGraphics import WordleGWindow, N_COLS, N_ROWS, CORRECT_COLOR, PRESENT_COLOR, MISSING_COLOR, UNKNOWN_COLOR, COLORBLIND_CORRECT
 KEY_COLOR = "#DDDDDD" 
 
 def randomWord():
